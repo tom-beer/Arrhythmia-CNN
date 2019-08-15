@@ -1,0 +1,256 @@
+<!--#set var="TITLE" value="MIT-BIH Arrhythmia Database"-->
+<!--#include virtual="/head.shtml"-->
+
+
+<p>
+<center><img src="/physiobank/charts/mitdb.png"></center>
+
+<p>
+Since 1975, our laboratories at Boston's Beth Israel Hospital (now the Beth
+Israel Deaconess Medical Center) and at MIT have supported our own research
+into arrhythmia analysis and related subjects. One of the first major products
+of that effort was the MIT-BIH Arrhythmia Database, which we completed and
+began distributing in 1980. The database was the first generally available set
+of standard test material for evaluation of arrhythmia detectors, and has been
+used for that purpose as well as for basic research into cardiac dynamics at
+more than 500 sites worldwide. Originally, we distributed the database on
+9-track half-inch digital tape at 800 and 1600 bpi, and on quarter-inch
+IRIG-format FM analog tape. In August, 1989, we produced a CD-ROM version of
+the database.
+
+<p>
+The MIT-BIH Arrhythmia Database contains 48 half-hour excerpts of two-channel
+ambulatory ECG recordings, obtained from 47 subjects studied by the BIH
+Arrhythmia Laboratory between 1975 and 1979. Twenty-three recordings were
+chosen at random from a set of 4000 24-hour ambulatory ECG recordings collected
+from a mixed population of inpatients (about 60%) and outpatients (about 40%)
+at Boston's Beth Israel Hospital; the remaining 25 recordings were selected
+from the same set to include less common but clinically significant arrhythmias
+that would not be well-represented in a small random sample.
+
+<p>
+The recordings were digitized at 360 samples per second per channel with 11-bit
+resolution over a 10 mV range. Two or more cardiologists independently
+annotated each record; disagreements were resolved to obtain the
+computer-readable reference annotations for each beat (approximately 110,000
+annotations in all) included with the database.
+
+<p>
+This directory contains the entire MIT-BIH Arrhythmia Database.  About half (25
+of 48 complete records, and reference annotation files for all 48 records) of
+this database has been freely available here since PhysioNet's inception in
+September 1999.  The 23 remaining signal files, which had been available only
+on the MIT-BIH Arrhythmia Database CD-ROM, were posted here in February 2005.
+
+<p>
+Much more information about this database may be found in the
+<a href="../html/mitdbdir/mitdbdir.htm">MIT-BIH Arrhythmia Database
+Directory</a>.
+
+<p>
+The following files may be downloaded from this site:
+
+<center>
+<table width=80%>
+<tr>
+<th align=left width=33%>Reference<br>annotations</th>
+<th align=left width=33%>Signals</th>
+<th align=left width=34%>Header</th></tr>
+
+<tr><td><a href="100.atr">100.atr</a></td>
+<td><a href="100.dat">100.dat</a></td>
+<td><a href="100.hea">100.hea</a></td></tr>
+
+<tr><td><a href="101.atr">101.atr</a></td>
+<td><a href="101.dat">101.dat</a></td>
+<td><a href="101.hea">101.hea</a></td></tr>
+
+<tr><td><a href="102.atr">102.atr</a></td>
+<td><a href="102.dat">102.dat</a></td>
+<td><a href="102.hea">102.hea</a></td></tr>
+
+<tr><td><a href="103.atr">103.atr</a></td>
+<td><a href="103.dat">103.dat</a></td>
+<td><a href="103.hea">103.hea</a></td></tr>
+
+<tr><td><a href="104.atr">104.atr</a></td>
+<td><a href="104.dat">104.dat</a></td>
+<td><a href="104.hea">104.hea</a></td></tr>
+
+<tr><td><a href="105.atr">105.atr</a></td>
+<td><a href="105.dat">105.dat</a></td>
+<td><a href="105.hea">105.hea</a></td></tr>
+
+<tr><td><a href="106.atr">106.atr</a></td>
+<td><a href="106.dat">106.dat</a></td>
+<td><a href="106.hea">106.hea</a></td></tr>
+
+<tr><td><a href="107.atr">107.atr</a></td>
+<td><a href="107.dat">107.dat</a></td>
+<td><a href="107.hea">107.hea</a></td></tr>
+
+<tr><td><a href="108.atr">108.atr</a></td>
+<td><a href="108.dat">108.dat</a></td>
+<td><a href="108.hea">108.hea</a></td></tr>
+
+<tr><td><a href="109.atr">109.atr</a></td>
+<td><a href="109.dat">109.dat</a></td>
+<td><a href="109.hea">109.hea</a></td></tr>
+
+<tr><td><a href="111.atr">111.atr</a></td>
+<td><a href="111.dat">111.dat</a></td>
+<td><a href="111.hea">111.hea</a></td></tr>
+
+<tr><td><a href="112.atr">112.atr</a></td>
+<td><a href="112.dat">112.dat</a></td>
+<td><a href="112.hea">112.hea</a></td></tr>
+
+<tr><td><a href="113.atr">113.atr</a></td>
+<td><a href="113.dat">113.dat</a></td>
+<td><a href="113.hea">113.hea</a></td></tr>
+
+<tr><td><a href="114.atr">114.atr</a></td>
+<td><a href="114.dat">114.dat</a></td>
+<td><a href="114.hea">114.hea</a></td></tr>
+
+<tr><td><a href="115.atr">115.atr</a></td>
+<td><a href="115.dat">115.dat</a></td>
+<td><a href="115.hea">115.hea</a></td></tr>
+
+<tr><td><a href="116.atr">116.atr</a></td>
+<td><a href="116.dat">116.dat</a></td>
+<td><a href="116.hea">116.hea</a></td></tr>
+
+<tr><td><a href="117.atr">117.atr</a></td>
+<td><a href="117.dat">117.dat</a></td>
+<td><a href="117.hea">117.hea</a></td></tr>
+
+<tr><td><a href="118.atr">118.atr</a></td>
+<td><a href="118.dat">118.dat</a></td>
+<td><a href="118.hea">118.hea</a></td></tr>
+
+<tr><td><a href="119.atr">119.atr</a></td>
+<td><a href="119.dat">119.dat</a></td>
+<td><a href="119.hea">119.hea</a></td></tr>
+
+<tr><td><a href="121.atr">121.atr</a></td>
+<td><a href="121.dat">121.dat</a></td>
+<td><a href="121.hea">121.hea</a></td></tr>
+
+<tr><td><a href="122.atr">122.atr</a></td>
+<td><a href="122.dat">122.dat</a></td>
+<td><a href="122.hea">122.hea</a></td></tr>
+
+<tr><td><a href="123.atr">123.atr</a></td>
+<td><a href="123.dat">123.dat</a></td>
+<td><a href="123.hea">123.hea</a></td></tr>
+
+<tr><td><a href="124.atr">124.atr</a></td>
+<td><a href="124.dat">124.dat</a></td>
+<td><a href="124.hea">124.hea</a></td></tr>
+
+<tr><td><a href="200.atr">200.atr</a></td>
+<td><a href="200.dat">200.dat</a></td>
+<td><a href="200.hea">200.hea</a></td></tr>
+
+<tr><td><a href="201.atr">201.atr</a></td>
+<td><a href="201.dat">201.dat</a></td>
+<td><a href="201.hea">201.hea</a></td></tr>
+
+<tr><td><a href="202.atr">202.atr</a></td>
+<td><a href="202.dat">202.dat</a></td>
+<td><a href="202.hea">202.hea</a></td></tr>
+
+<tr><td><a href="203.atr">203.atr</a></td>
+<td><a href="203.dat">203.dat</a></td>
+<td><a href="203.hea">203.hea</a></td></tr>
+
+<tr><td><a href="205.atr">205.atr</a></td>
+<td><a href="205.dat">205.dat</a></td>
+<td><a href="205.hea">205.hea</a></td></tr>
+
+<tr><td><a href="207.atr">207.atr</a></td>
+<td><a href="207.dat">207.dat</a></td>
+<td><a href="207.hea">207.hea</a></td></tr>
+
+<tr><td><a href="208.atr">208.atr</a></td>
+<td><a href="208.dat">208.dat</a></td>
+<td><a href="208.hea">208.hea</a></td></tr>
+
+<tr><td><a href="209.atr">209.atr</a></td>
+<td><a href="209.dat">209.dat</a></td>
+<td><a href="209.hea">209.hea</a></td></tr>
+
+<tr><td><a href="210.atr">210.atr</a></td>
+<td><a href="210.dat">210.dat</a></td>
+<td><a href="210.hea">210.hea</a></td></tr>
+
+<tr><td><a href="212.atr">212.atr</a></td>
+<td><a href="212.dat">212.dat</a></td>
+<td><a href="212.hea">212.hea</a></td></tr>
+
+<tr><td><a href="213.atr">213.atr</a></td>
+<td><a href="213.dat">213.dat</a></td>
+<td><a href="213.hea">213.hea</a></td></tr>
+
+<tr><td><a href="214.atr">214.atr</a></td>
+<td><a href="214.dat">214.dat</a></td>
+<td><a href="214.hea">214.hea</a></td></tr>
+
+<tr><td><a href="215.atr">215.atr</a></td>
+<td><a href="215.dat">215.dat</a></td>
+<td><a href="215.hea">215.hea</a></td></tr>
+
+<tr><td><a href="217.atr">217.atr</a></td>
+<td><a href="217.dat">217.dat</a></td>
+<td><a href="217.hea">217.hea</a></td></tr>
+
+<tr><td><a href="219.atr">219.atr</a></td>
+<td><a href="219.dat">219.dat</a></td>
+<td><a href="219.hea">219.hea</a></td></tr>
+
+<tr><td><a href="220.atr">220.atr</a></td>
+<td><a href="220.dat">220.dat</a></td>
+<td><a href="220.hea">220.hea</a></td></tr>
+
+<tr><td><a href="221.atr">221.atr</a></td>
+<td><a href="221.dat">221.dat</a></td>
+<td><a href="221.hea">221.hea</a></td></tr>
+
+<tr><td><a href="222.atr">222.atr</a></td>
+<td><a href="222.dat">222.dat</a></td>
+<td><a href="222.hea">222.hea</a></td></tr>
+
+<tr><td><a href="223.atr">223.atr</a></td>
+<td><a href="223.dat">223.dat</a></td>
+<td><a href="223.hea">223.hea</a></td></tr>
+
+<tr><td><a href="228.atr">228.atr</a></td>
+<td><a href="228.dat">228.dat</a></td>
+<td><a href="228.hea">228.hea</a></td></tr>
+
+<tr><td><a href="230.atr">230.atr</a></td>
+<td><a href="230.dat">230.dat</a></td>
+<td><a href="230.hea">230.hea</a></td></tr>
+
+<tr><td><a href="231.atr">231.atr</a></td>
+<td><a href="231.dat">231.dat</a></td>
+<td><a href="231.hea">231.hea</a></td></tr>
+
+<tr><td><a href="232.atr">232.atr</a></td>
+<td><a href="232.dat">232.dat</a></td>
+<td><a href="232.hea">232.hea</a></td></tr>
+
+<tr><td><a href="233.atr">233.atr</a></td>
+<td><a href="233.dat">233.dat</a></td>
+<td><a href="233.hea">233.hea</a></td></tr>
+
+<tr><td><a href="234.atr">234.atr</a></td>
+<td><a href="234.dat">234.dat</a></td>
+<td><a href="234.hea">234.hea</a></td></tr>
+</table>
+</center>
+
+<!--#include virtual="/footer.shtml"-->
+</body>
+</html>
