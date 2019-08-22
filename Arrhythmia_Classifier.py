@@ -2,6 +2,7 @@ from __future__ import print_function
 import torch
 import torch.utils.data
 import numpy as np
+import pandas as pd
 import wfdb
 import os
 
@@ -11,9 +12,9 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
-is_cuda = True
+is_cuda = False
 num_epochs = 100
-batch_size = 1
+batch_size = 10
 torch.manual_seed(46)
 log_interval = 10
 in_channels_ = 1
@@ -30,39 +31,27 @@ scaler = MinMaxScaler(feature_range=(0, 1), copy=False)
 
 
 class CustomDatasetFromCSV(Dataset):
-    def __init__(self, data_path, seg_ids, transforms_=None):
-        arr_db = wfdb.get_record_list('mitdb')
-        sig_list = []
-        seg_ids_internal = []
-        if not allow_label_leakage:
-            seg_ids_internal = [arr_db[idx] for idx in seg_ids]  # get the real id of the record
-        for _, record in enumerate(arr_db):
-            if (not allow_label_leakage) & (record not in seg_ids_internal): continue
-            record_path = os.path.join(data_path, str(record))
-            record_signal = wfdb.rdsamp(record_path, sampto=num_segments_in_record * segment_len)[0][:, 0]
-            sig_list.append(record_signal.reshape([num_segments_in_record, segment_len]))
-        signals = np.vstack(sig_list)
-        signals = scaler.fit_transform(signals.T).T.reshape([-1, 1, segment_len])
-        if allow_label_leakage:
-            signals = signals[seg_ids]
-        self.signals = signals
+    def __init__(self, data_path, transforms_=None):
+        self.df = pd.read_pickle(data_path)
         self.transforms = transforms_
 
     def __getitem__(self, index):
 
-        signal = self.signals[index]
+        row = self.df.iloc[index]
+        signal = row['signal']
+        target = row['class']
         if self.transforms is not None:
             signal = self.transforms(signal)
 
-        return signal
+        return signal, torch.Tensor(target)
 
     def __len__(self):
-        return self.signals.shape[0]
+        return self.df.shape[0]
 
 
-train_dataset = CustomDatasetFromCSV('./data/mit-bih-arrhythmia-database-1.0.0', seg_ids=train_ids)
+train_dataset = CustomDatasetFromCSV('./data/sample_df_bar.pkl')
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=False)
-test_dataset = CustomDatasetFromCSV('./data/mit-bih-arrhythmia-database-1.0.0', seg_ids=test_ids)
+test_dataset = CustomDatasetFromCSV('./data/sample_df_bar.pkl')
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
 
@@ -124,7 +113,7 @@ class arrhythmia_classifier(nn.Module):
             nn.ReLU(),
             nn.Dropout(p=.1),
             nn.Linear(in_features=512, out_features=num_classes),
-            nn.SoftMax()
+            nn.Softmax()
         )
 
     def forward(self, x, ex_features=None):
@@ -141,13 +130,12 @@ def calc_next_len_conv1d(current_len=112500, kernel_size=16, stride=8, padding=0
 
 
 model = arrhythmia_classifier().to(device).double()
-# best at lr=0.0005, weight_decay=1e-5 factor=0.5, patience=5
 lr = 0.0003
 num_of_iteration = len(train_dataset) // batch_size
 
 optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-6)
 scheduler = ReduceLROnPlateau(optimizer, factor=0.5, patience=3)
-criterion = nn.MSELoss()
+criterion = nn.NLLLoss()
 cyclic_lr = GenerateLR(max_lr=lr, min_lr_ratio=10, anneal_cycle_pct=10,
                        tot_num_iter=(num_epochs * num_of_iteration))
 
@@ -155,16 +143,16 @@ cyclic_lr = GenerateLR(max_lr=lr, min_lr_ratio=10, anneal_cycle_pct=10,
 def train(epoch):
     model.train()
     train_loss = 0
-    for batch_idx, data in enumerate(train_loader):
-        data = data.to(device)
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.to(device)
         # if len(cyclic_lr) > 0:
         #     lr = cyclic_lr.pop(0)
         # for g in optimizer.param_groups:
         #     g['lr'] = lr
         optimizer.zero_grad()
         # features = np.random.randn(batch_size, 40)
-        recon_batch = model(data)
-        loss = criterion(recon_batch, data.view(recon_batch.shape[0], -1))
+        output = model(data)
+        loss = criterion(output, target)
         loss.backward()
         train_loss += loss.item()
         optimizer.step()
