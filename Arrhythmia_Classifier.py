@@ -21,7 +21,7 @@ in_channels_ = 1
 num_segments_in_record = 100
 segment_len = 3600
 num_records = 48
-num_classes = 13
+num_classes = 12
 allow_label_leakage = True
 
 device = torch.device("cuda:2" if is_cuda else "cpu")
@@ -39,11 +39,11 @@ class CustomDatasetFromCSV(Dataset):
 
         row = self.df.iloc[index]
         signal = row['signal']
-        target = row['class']
+        target = row['target']
         if self.transforms is not None:
             signal = self.transforms(signal)
 
-        return signal, torch.Tensor(target)
+        return signal, target
 
     def __len__(self):
         return self.df.shape[0]
