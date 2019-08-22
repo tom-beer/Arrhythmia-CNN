@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01233af3-4ee7-41b1-a8d8-a7323916c201" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Arrhythmia_Classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Arrhythmia_Classifier.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Create Arrhythmia Dataset.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Create Arrhythmia Dataset.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aux.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/aux.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampled.pkl" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Arrhythmia_Classifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1540">
-              <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+            <state relative-caret-position="680">
+              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -203,7 +200,7 @@
       <updated>1566111648656</updated>
       <workItem from="1566111649891" duration="8476000" />
       <workItem from="1566200548330" duration="8000" />
-      <workItem from="1566473523630" duration="2960000" />
+      <workItem from="1566473523630" duration="4231000" />
     </task>
     <task id="LOCAL-00001" summary="added normal beat+other rhythm">
       <created>1566121056824</created>
@@ -216,7 +213,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11444000" />
+    <option name="totallyTimeSpent" value="12715000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -361,8 +358,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Arrhythmia_Classifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1540">
-          <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+        <state relative-caret-position="680">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
