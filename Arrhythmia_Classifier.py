@@ -3,12 +3,9 @@ import torch
 import torch.utils.data
 import numpy as np
 import pandas as pd
-import wfdb
-import os
 
 from torch import nn, optim
 from torch.utils.data.dataset import Dataset
-from torch.optim.lr_scheduler import ReduceLROnPlateau
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
@@ -21,13 +18,12 @@ in_channels_ = 1
 num_segments_in_record = 100
 segment_len = 3600
 num_records = 48
-num_classes = 12
+num_classes = 16
 allow_label_leakage = True
 
 device = torch.device("cuda:2" if is_cuda else "cpu")
-index_set = (num_records * num_segments_in_record if allow_label_leakage else num_records)
-train_ids, test_ids = train_test_split(np.arange(index_set), train_size=.8, random_state=46)
-scaler = MinMaxScaler(feature_range=(0, 1), copy=False)
+# train_ids, test_ids = train_test_split(np.arange(index_set), train_size=.8, random_state=46)
+# scaler = MinMaxScaler(feature_range=(0, 1), copy=False)
 
 
 class CustomDatasetFromCSV(Dataset):
@@ -36,34 +32,22 @@ class CustomDatasetFromCSV(Dataset):
         self.transforms = transforms_
 
     def __getitem__(self, index):
-
         row = self.df.iloc[index]
         signal = row['signal']
         target = row['target']
         if self.transforms is not None:
             signal = self.transforms(signal)
-
+        signal = signal.reshape(1, signal.shape[0])
         return signal, target
 
     def __len__(self):
         return self.df.shape[0]
 
 
-train_dataset = CustomDatasetFromCSV('./data/sample_df_bar.pkl')
+train_dataset = CustomDatasetFromCSV('./data/Arrhythmia_dataset.pkl')
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=False)
-test_dataset = CustomDatasetFromCSV('./data/sample_df_bar.pkl')
+test_dataset = CustomDatasetFromCSV('./data/Arrhythmia_dataset.pkl')
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
-
-
-def GenerateLR(max_lr, min_lr_ratio, anneal_cycle_pct, tot_num_iter):
-    min_lr = max_lr / min_lr_ratio
-    half_cyc_len = int((np.floor(100 - anneal_cycle_pct) / 100) * tot_num_iter / 2)
-    anneal_len = int(tot_num_iter - 2 * half_cyc_len)
-    upVec = np.linspace(min_lr, max_lr, half_cyc_len)
-    downVec = np.flip(upVec)
-    annealVec = np.flip(np.linspace(min_lr / 100, min_lr, anneal_len))
-    cyclic_lr = (upVec.tolist()) + (downVec.tolist()) + (annealVec.tolist())
-    return cyclic_lr
 
 
 class Flatten(torch.nn.Module):
@@ -117,11 +101,6 @@ class arrhythmia_classifier(nn.Module):
         )
 
     def forward(self, x, ex_features=None):
-        # encoded = self.encode(x)
-        # us_decoded = self.us_decoder(encoded)
-        # ex_decoded = self.ex_decoder(ex_features)
-        # aggr_rep = torch.cat([ex_decoded.to(device), us_decoded], dim=1)
-        # z = self.aggr_decoder(aggr_rep)
         return self.cnn(x)
 
 
@@ -134,10 +113,7 @@ lr = 0.0003
 num_of_iteration = len(train_dataset) // batch_size
 
 optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-6)
-scheduler = ReduceLROnPlateau(optimizer, factor=0.5, patience=3)
 criterion = nn.NLLLoss()
-cyclic_lr = GenerateLR(max_lr=lr, min_lr_ratio=10, anneal_cycle_pct=10,
-                       tot_num_iter=(num_epochs * num_of_iteration))
 
 
 def train(epoch):
@@ -145,12 +121,7 @@ def train(epoch):
     train_loss = 0
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
-        # if len(cyclic_lr) > 0:
-        #     lr = cyclic_lr.pop(0)
-        # for g in optimizer.param_groups:
-        #     g['lr'] = lr
         optimizer.zero_grad()
-        # features = np.random.randn(batch_size, 40)
         output = model(data)
         loss = criterion(output, target)
         loss.backward()
@@ -170,25 +141,17 @@ def test(epoch):
     model.eval()
     test_loss = 0
     with torch.no_grad():
-        for batch_idx, data in enumerate(test_loader):
-            data = data.to(device)
-            recon_batch = model(data)
-            loss = criterion(recon_batch, data.view(recon_batch.shape[0], -1))
+        for batch_idx, (data, target) in enumerate(test_loader):
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            loss = criterion(output, target)
             test_loss += loss.item()
-            # import matplotlib.pyplot as plt
-            # plt.plot(np.squeeze(data[0, :, :].cpu().detach().numpy()))
-            # plt.plot(np.squeeze(recon_batch[0, :].cpu().detach().numpy()))
 
             if batch_idx == 0:
                 n = min(data.size(0), 4)
-                # comparison = torch.cat([data[:n],
-                #                       recon_batch.view(batch_size, 1, 28, 28)[:n]])
-                # save_image(comparison.cpu(),
-                #          'results/reconstruction_' + str(epoch) + '.png', nrow=n)
 
     test_loss /= len(test_loader.dataset)
     print('====> Test set loss: {:.5f}'.format(test_loss))
-    # scheduler.step(test_loss)
     print(f'Learning rate: {optimizer.param_groups[0]["lr"]:.6f}')
 
 
@@ -196,8 +159,3 @@ if __name__ == "__main__":
     for epoch in range(1, num_epochs + 1):
         train(epoch)
         test(epoch)
-        # with torch.no_grad():
-        #     sample = torch.randn(64, 20).to(device)
-        #     sample = model.decode(sample).cpu()
-        #     save_image(sample.view(64, 1, 28, 28),
-        #                'results/sample_' + str(epoch) + '.png')
